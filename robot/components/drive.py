@@ -10,6 +10,7 @@ import math
 # Define constants. This way if we need to change something we don't have to change it 50 times.
 ENCODER_ROTATION = 1023
 WHEEL_DIAMETER = 7.639
+
 class Drive:
     """
         The sole interaction between the robot and its driving system
@@ -97,29 +98,23 @@ class Drive:
         self.gyro_enabled = value
 
     def return_gyro_angle(self):
-        """Returns the gyro angle"""
         return self.navX.getYaw()
 
     def reset_gyro_angle(self):
-        """Resets the gyro angle"""
         self.navX.reset()
 
     def set_angle_constant(self, constant):
-        """Sets the constant that is used to determine the robot turning speed"""
         self.angle_constant = constant
 
     def reset_drive_encoders(self):
-        """Resets drive encoders"""
         self.lf_encoder.zero()
         self.rf_encoder.zero()
 
 
     def return_drive_encoder_position(self):
-        """:returns: Drive Encoder Position"""
         return self.lf_encoder.get()
 
     def _get_inches_to_ticks(self, inches):
-        """Converts inches to encoder ticks"""
 
         gear_ratio = 50 / 12
         target_position = (gear_ratio * ENCODER_ROTATION * inches) / (math.pi*WHEEL_DIAMETER)
@@ -170,19 +165,16 @@ class Drive:
         self.align_angle_nt = 0
 
     def align_to_tower(self):
-        #self.rotation = 0
         if self.align_angle is not None:
             return self.angle_rotation(self.align_angle)
         else:
             return False
 
     def _align_angle_updated(self, source, key, value, isNew):
-        # store the absolute value that we need to go to
         self.align_angle = value + self.return_gyro_angle()
         self.align_angle_nt = self.align_angle
 
     def wall_goto(self):
-        """back up until we are 16 cm away from the wall. Fake PID will move us closer and further to the wall"""
         y = (self.back_sensor.getDistance() - 16.0)/35
         y = max(min(.6, y), -.6)
 
@@ -190,11 +182,9 @@ class Drive:
         return y
 
     def set_direction(self, direction):
-        """Used to reverse direction"""
         self.isTheRobotBackwards = bool(direction)
 
     def switch_direction(self):
-        """when called the robot will reverse front/back"""
         self.isTheRobotBackwards = not self.isTheRobotBackwards
 
     def halveRotation(self):

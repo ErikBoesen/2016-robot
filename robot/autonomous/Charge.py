@@ -12,5 +12,4 @@ class Charge(StatefulAutonomous):
 
     @timed_state(duration = 2, first = True)
     def charge(self, initial_call):
-        # Go forward
         self.drive.move(1,0)

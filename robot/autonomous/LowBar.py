@@ -27,7 +27,6 @@ class LowBar(StatefulAutonomous):
 
     @state
     def drive_forward(self):
-        #self.intake.set_arm_middle()
         if self.drive.drive_distance(self.Drive_Distance*12, max_speed=self.Max_Drive_Speed):
             self.next_state('rotate')
     @state

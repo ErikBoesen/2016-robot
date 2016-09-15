@@ -20,9 +20,6 @@ class PhysicsEngine:
     def __init__(self, controller):
         self.controller = controller
 
-        # keep track of the tote encoder position
-
-        # keep track of the can encoder position
         self.armAct = 500
         self.prev_armAct = 500
 

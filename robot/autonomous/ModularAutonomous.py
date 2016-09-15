@@ -34,9 +34,6 @@ class ModularAutonomous(LowBar, ChevalDeFrise, Portcullis, Charge, Default):
 
     @state
     def transition(self):
-        # tangent^-1(opposite/adj)
-        #opposite = 10
-        #adj = 50*(position - 1)
         if self.position == 3:
             self.angleConst = 1
         elif self.position == 2 :
@@ -107,7 +104,6 @@ class BallModularAutonomous(ModularAutonomous):
             self.drive.reset_drive_encoders()
             self.intake.set_arm_middle()
 
-        #Drive distance is negative here because we have to back up to make sure the arms dont extend too far!
         if self.drive.drive_distance(self.Drive_Distance) and self.intake.on_target():
             self.next_state('collect')
 
